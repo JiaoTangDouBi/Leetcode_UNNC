@@ -1,0 +1,19 @@
+In case of anyone who is not familiar with Roman value, here gives a simple tutorial:
+  BTW, You can find more detailed document from: https://en.wikipedia.org/wiki/Roman_numerals
+  
+There are five fundamental words in Roman:
+/*
+* I = 1
+* V = 5
+* X = 10
+* L = 50
+* C = 100
+* D = 500
+* M = 1000
+*/
+For example:
+        "DCXXI" = 500 + 100 + 10 + 10 + 1 = 621
+However you may also need to know some extral rules:
+1. I placed before V or X indicates one less, so four is IV (one less than five) and nine is IX (one less than ten)
+2. X placed before L or C indicates ten less, so forty is XL (ten less than fifty) and ninety is XC (ten less than a hundred)
+3. C placed before D or M indicates a hundred less, so four hundred is CD (a hundred less than five hundred) and nine hundred is CM (a hundred less than a thousand)
