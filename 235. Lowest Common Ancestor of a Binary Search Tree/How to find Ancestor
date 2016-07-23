@@ -1,0 +1,11 @@
+This question can be easily divided into two cases:
+  1. The ancestor is neither p or q.
+  2. The ancestor is either p or q.
+  
+Due to the feature of BST (Left < node < right), it is easy to determine the position of p and q according to the value of 
+current root. 
+  For p < q, 
+    1. if root.left == p && root.val < q.val, then q must be in the right hand side, so current node is their
+    ancestor.
+    2. if root.left == p && root.val > q.val, then q must be in the same side of p (left), so p is their ancestor.
+  Same to q >= p.
