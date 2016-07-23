@@ -1,0 +1,8 @@
+Using combination in this solution.
+Detail:
+  1. Firstly, list all the numbers of steps for all the possible solutions. In other word, category the solutions if they have
+    identical number of 2 steps and number of 1 step.
+  2. Using combination (i.e. C) for each group of solution and add them together.
+  
+Be careful:
+  Due to the extremely large value for factorial, we need to use BigInteger class in case of overflow.
