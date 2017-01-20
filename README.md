@@ -1,1 +1,1 @@
-#为了赚大钱而奋斗 哈哈哈哈哈哈哈哈哈哈哈哈哈
+#We're solving questions in leetcode and puting our answers on this repository
