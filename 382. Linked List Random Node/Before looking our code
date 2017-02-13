@@ -1,0 +1,4 @@
+**Before understanding those codes**
+Can you solve this question:
+  Given an infinit length of data stream, random print one item from this stream and make sure the possibility of each item is equal.
+ ***The answer is reservoir sampling***
