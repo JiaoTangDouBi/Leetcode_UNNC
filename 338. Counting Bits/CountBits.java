@@ -1,26 +1,12 @@
 public class Solution {
-    //Check the integer from 0 to num interatively
-    //In terms of a given integer, we can use a mask to check the value in each digit of its binary representation
+    /*One trick is: ones[num] = ones[num>>1] + (num & 1)
+     The no. of 1's in a given number's binary representation is equal to the half of it plus its right-most 1 or 0.
+     */
     public int[] countBits(int num) {
-        int[] ones = new int[num+1];
-        int move = 0;
-        int ups = 2-1;
-        for (int i = 0; i <= num; i++){
-            if (i > ups){
-                move++;
-                ups = i*2-1;
-            }
-            int com = 1;
-            int one = 0;
-            int j = 0;
-            do{
-                if ((com & i) != 0)
-                    one++;
-                    com<<=1;
-                    j++;
-            }while(j<=move);
-            ones[i] = one;
+        int[] output = new int[num+1];
+        for(int i = 0; i <= num; i++){
+            output[i] = output[i>>1] + (i & 1);
         }
-        return ones;
+        return output;
     }
 }
