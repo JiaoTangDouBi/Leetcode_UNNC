@@ -1,26 +1,17 @@
 public class Solution {
+    //We need to use the special range of a[i] value.
+    /*For an index i, we flip a[a[i]-1] = -a[a[i]-1]. 
+    So that if a[i] has duplicate, we could reach a[a[i]-1] another time and notice the value is negative.
+    */
     public List<Integer> findDuplicates(int[] nums) {
-        /*Add nums.length to nums[i] in nums if we have seen vaule of i before.
-        In detail, for every element e in nums, 
-        if e<= nums.length then check whether nums[nums[e]] is bigger than nums.length or not
-            If yes, it means we have seen it before and we add it to output list.
-            If no, it means this is the first time we see it and we add nums[nums[e]] by nums.length.
-        if e> nums.length, then check whether nums[nums[e-nums.length]] is bigger than nums.lengh or not
-        */
-        int[] help = new int[nums.length];
-        List<Integer> output = new ArrayList<Integer>();
+        List<Integer> output = new ArrayList<>();
         for(int i = 0; i < nums.length; i++){
-            int temp = nums[i]-1;
-            if(nums[i] > nums.length){
-                temp -= nums.length;
+            int index = Math.abs(nums[i])-1;
+            if(nums[index] < 0){
+                output.add(index+1);
             }
-            //check whether nums[temp] is visited or not;
-            if(nums[temp] > nums.length){
-                output.add(temp+1);
-            }
-            else{
-                nums[temp] += nums.length;
-            }
+            else
+                nums[index] = -nums[index];
         }
         return output;
     }
