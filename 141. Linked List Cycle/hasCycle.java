@@ -10,29 +10,19 @@
  * }
  */
 public class Solution {
+    //Use two pointers to iterate the list, where one shift 2 steps in each iteration and another shift 1 in every iteration.
+    //If there exists a cycle in the linkedlist, those two pointers must meet in some node.
     public boolean hasCycle(ListNode head) {
-        if (head == null){
-            return false;
-        }
-        else {
-            ListNode test1 = head;
-            ListNode test2 = head.next;
-            while (test1 != null && test2 != null){
-                if (test1 == test2){
-                    return true;
-                }
-                else{
-                    test1 = test1.next;
-                    test2 = test2.next;
-                    if(test2 == null || test2.next == null){
-                        return false;
-                    }
-                    else{
-                        test2 = test2.next;
-                    }
-                }
+        if(head == null || head.next == null)   return false;
+        ListNode iter1 = head;
+        ListNode iter2 = head.next;
+        while(iter2.next != null && iter2.next.next != null){
+            iter1 = iter1.next;
+            iter2 = iter2.next.next;
+            if(iter1 == iter2){
+                return true;
             }
-            return false;
         }
+        return false;
     }
 }

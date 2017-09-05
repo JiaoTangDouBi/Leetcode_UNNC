@@ -1,47 +1,20 @@
-public class MinStack {
-    /*use two stacks in which one is used to store all elements and the other is used to store the minimum value.
-    Both of them r dynamic
-    */
-    Stack<Integer> stack = new Stack<Integer>();
-    Stack<Integer> min   = new Stack<Integer>();
+class MinStack {
+    Stack<Integer> stack;
+    PriorityQueue<Integer> pq;
     /** initialize your data structure here. */
     public MinStack() {
-        
+        stack = new Stack<>();
+        pq    = new PriorityQueue<Integer>();
     }
     
     public void push(int x) {
         stack.push(x);
-        if (min.isEmpty()) min.push(x);
-        else{
-            if (min.peek()>x){
-                min.pop();
-                min.push(x);
-            }
-        }
+        pq.add(x);
     }
     
     public void pop() {
-        int c = stack.peek(), b = min.peek();
-        if (c==b){ 
-            min.pop();
-            stack.pop();
-            if (!stack.isEmpty()){
-                int a = stack.peek();
-                Stack<Integer> temp = new Stack<Integer>();
-                while(!stack.isEmpty()){
-                    if (stack.peek() < a){
-                        a = stack.peek();
-                    }
-                    temp.push(stack.pop());
-                }
-                while (!temp.isEmpty() ){
-                    stack.push(temp.pop());
-                }
-                min.push(a);
-            }
-        }
-        else
-            stack.pop();
+        int temp = stack.pop();
+        pq.remove(temp);
     }
     
     public int top() {
@@ -49,7 +22,7 @@ public class MinStack {
     }
     
     public int getMin() {
-        return min.peek();
+        return pq.peek();
     }
 }
 
