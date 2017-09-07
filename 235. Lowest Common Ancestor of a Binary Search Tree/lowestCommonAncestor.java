@@ -7,35 +7,21 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-public class Solution {
+class Solution {
+    //if p.val < root < q.val || p.val > root > q.val, then return root.
+    //if p.val < root && p.val <root, then  move to the root.left and solve this problem recursively.
+    //o/w, move to the right branch.
+    TreeNode result = null;
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if (p.val>q.val){
-            if (root.val == p.val || root.val == q. val){
+        if(root == p || root == q)
+            return root;
+        else{
+            if ((p.val < root.val && root.val < q.val) || (p.val > root.val && root.val > q.val))
                 return root;
-            }
-            else if (root.val < p.val && root.val > q.val){
-                return root;
-            }
-            else if (root.val>p.val){
+            else if(p.val < root.val && q.val < root.val)
                 return lowestCommonAncestor(root.left, p, q);
-            }
-            else{
-                return lowestCommonAncestor(root.right, p, q);
-            }
-        }
-        else {
-            if (root.val == p.val || root.val == q. val){
-                return root;
-            }
-            else if (root.val < q.val && root.val > p.val){
-                return root;
-            }
-            else if (root.val>q.val){
-                return lowestCommonAncestor(root.left, p, q);
-            }
-            else{
-                return lowestCommonAncestor(root.right, p, q);
-            }
+            else
+                return lowestCommonAncestor(root.right,p, q);
         }
     }
 }

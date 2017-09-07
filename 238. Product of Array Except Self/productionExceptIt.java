@@ -1,18 +1,23 @@
-public class Solution {
+class Solution {
+    //Iterate the array twice
+    //the first time goes from left to right and save the accelerate product from 0 to i to result[i].
+    //The second time goest from right to left and save the accelerate product from nums.length-1 to i to result[i].
+    //Multiply the output achieved from first and second times and the result is our goal.
     public int[] productExceptSelf(int[] nums) {
-        /*
-        For a given nums[i], the product of i is the product of all elements between (0,i-1) times the product of all elements between elements between (i+1, nums.length-1);
-        */
         int[] output = new int[nums.length];
-        output[0] = 1;
+        Arrays.fill(output, 1);
+        int product = 1;
         for(int i = 1; i < nums.length; i++){
-            output[i]=output[i-1]*nums[i-1];
+            product *= nums[i-1];
+            output[i] *= product;
         }
-        int hold = nums[nums.length-1];
-        for(int i = nums.length-2; i >= 0; i--){
-            output[i] = output[i]*hold;
-            hold *= nums[i];
+        
+        product = 1;
+        for(int j = nums.length-2; j>=0; j--){
+            product *= nums[j+1];
+            output[j] *= product;
         }
+        
         return output;
     }
 }
