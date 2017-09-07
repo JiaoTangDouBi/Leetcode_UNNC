@@ -6,23 +6,41 @@
  *     ListNode(int x) { val = x; }
  * }
  */
-public class Solution {
-    public ListNode reverseList(ListNode head) {
-        ArrayList<Integer> array = new ArrayList<Integer>();
-        while (head!= null) {
-        	array.add(head.val);
-        	head =head.next;
-		}
-		if (array.size() == 0){
-		    return null;
-		}
-        ArrayList<ListNode> array1 = new ArrayList<ListNode>();
-        for (int i = array.size()-1; i >= 0 ; i--) {
-			array1.add(new ListNode(array.get(i)));
-		}
-        for (int i = 0; i < array1.size()-1; i++){
-            array1.get(i).next = array1.get(i+1);
+class Solution {
+    //Recursion solution
+    public ListNode reverseListRec(ListNode head) {
+        if(head == null){
+            return null;
         }
-        return array1.get(0);
+        else if(head.next == null){
+            return head;
+        }
+        else{
+            ListNode help = reverseList(head.next);
+            ListNode iterator = help;
+            ListNode end = new ListNode(head.val);
+            while(iterator.next != null){
+                iterator = iterator.next;
+            }
+            iterator.next = end;
+            return help;
+        }
+    }
+    
+    //iteration solution
+    public ListNode reverseList(ListNode head) {
+        if(head == null){
+            return null;
+        }
+        ListNode help = new ListNode(head.val);
+        ListNode iterator = head.next;
+        while(iterator != null){
+            ListNode temp = new ListNode(iterator.val);
+            iterator = iterator.next;
+            temp.next = help;
+            help = temp;
+        }
+        
+        return help;
     }
 }
