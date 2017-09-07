@@ -10,48 +10,49 @@
  * }
  */
 public class Solution {
-    //if the lengthes of two lists are same, just compare one by one.
-    //if the lengthes are diff, we can divide process into two steps:
-    //first: pass though the longer list until the distance from the current point to the end of this list is the same as another.
-    //second: operate the comparison one by one. Since if they have intersection, they must end in the same point. Y style.
+    /*Even though the length of two lists are diff, if two given lists have any intersection,
+      the nodes after this intersection point should be identical. Like Y shape.
+      In other word, the intersection should occur in the same location away from the ending.
+      Thus for the longer list, we don't need to scrutinize the first (l1-l2) nodes cuz no itersection occurs there.
+    */
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        if (headA == null || headB == null){
-            return null;
+        int l1 = 0;
+        int l2 = 0;
+        ListNode iter1 = headA;
+        ListNode iter2 = headB;
+        while(iter1 != null){
+            l1++;
+            iter1 = iter1.next;
         }
-        int diff = lengthList(headA) - lengthList(headB);
-        ListNode tempA = headA;
-        ListNode tempB = headB;
-        if (diff > 0){
-            for (int i = 0; i < diff; i++){
-                tempA = tempA.next;
+        while(iter2 != null){
+            l2++;
+            iter2 = iter2.next;
+        }
+        iter1 = headA;
+        iter2 = headB;
+        
+        //let pointers iter1 and iter2 in the same locaiton away from the ending.
+        if(l1 > l2){
+            int k = l1-l2;
+            while(k > 0){
+                iter1 = iter1.next;
+                k--;
             }
-        }
-        else if (diff < 0){
-            for (int i = 0; i < -diff; i++){
-                tempB = tempB.next;
-            }
-        }
-        if (tempA == tempB){
-            return tempA;
         }
         else{
-            while(tempA != null){
-                tempA = tempA.next;
-                tempB = tempB.next;
-                if (tempA == tempB){
-                    return tempA;
-                }
+            int k = l2-l1;
+            while(k>0){
+                iter2 = iter2.next;
+                k--;
             }
-            return null;
         }
-    }
-    
-    public int lengthList(ListNode head){
-        int length = 0;
-        while (head != null){
-            length++;
-            head = head.next;
+        
+        while(iter1 != null){
+            if(iter1 == iter2)
+                return iter1;
+            iter1 = iter1.next;
+            iter2 = iter2.next;
         }
-        return length;
+        return null;
     }
 }
