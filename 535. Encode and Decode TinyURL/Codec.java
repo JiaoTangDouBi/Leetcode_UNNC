@@ -5,34 +5,39 @@ public class Codec {
     * I use an integer to represent each identification, so the integer is 62 hexadecimal number.
     */
     
-    HashMap<String, String> map = new HashMap<String, String>();
-    int identification=1;
+    
+    HashMap<String, String> shortKey = new HashMap<>();
+    int counter = 1;
+    
     // Encodes a URL to a shortened URL.
     public String encode(String longUrl) {
-        int digit = (int)(Math.log(identification)/Math.log(62));
-        char[] rep = new char[digit+1];
-        int held = identification;
-        while(digit >= 0){
-            int temp = held - (int)(Math.pow(62,digit));
-            if(temp<=9){
-                rep[rep.length-1-digit]=(char)(temp+48);
+        StringBuilder sb = new StringBuilder();
+        
+        int temp = counter;
+        
+        while(temp > 0){
+            int k = temp%62;
+            if(k>=0 && k <= 9){
+                sb.append((char)(k+48));
             }
-            else if(temp<=35){
-                rep[rep.length-1-digit]=(char)(temp+55);
+            else if (k>=10 && k<=35){
+                sb.append((char)(k+55));
             }
             else{
-                rep[rep.length-1-digit]=(char)(temp+61);
+                sb.append((char)(k+61));
             }
-            digit--;
+            temp /= 10;
         }
-        String tinyUrl = "http://tinyurl.com/"+String.valueOf(rep);
-        map.put(tinyUrl,longUrl);
-        return tinyUrl;
+        counter++;
+        String tinyUrl = new String(sb);
+        shortKey.put(tinyUrl, longUrl);
+        return "http://tinyurl.com/" + tinyUrl;
     }
 
     // Decodes a shortened URL to its original URL.
     public String decode(String shortUrl) {
-        return map.get(shortUrl);
+        String tinyUrl = shortUrl.substring("http://tinyurl.com/".length());
+        return shortKey.get(tinyUrl);
     }
 }
 
