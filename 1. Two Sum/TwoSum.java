@@ -6,16 +6,18 @@ public class Solution {
     //that is, for an index i, find whether map contains key whose value equals to target substract nums[i]. if yes return.
     public int[] twoSum(int[] nums, int target) {
         int[] output = new int[2];
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-        for(int i = 0; i < nums.length; i++){
-            if(map.containsKey(target-nums[i])){
-                output[0] = map.get(target-nums[i]);
-                output[1] = i;
-                return output;
+        int counter = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int num : nums){
+            int remainder = target - num;
+            if(map.containsKey(remainder)){
+                output[0] = map.get(remainder);
+                output[1] = counter;
             }
-            int key = nums[i];
-            //there is no duplication, so we don't need to check whether the key exists or not.
-            map.put(key,i);
+            else{
+                map.put(num,counter);
+            }
+            counter++;
         }
         return output;
     }
